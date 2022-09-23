@@ -1,8 +1,62 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../contexts/AppContext';
+import Link from 'next/link';
+import ImgWrapper from '../components/ImgWrapper/ImgWrapper';
+import { getFirestore } from '../utils/firebase';
+import { CartContext } from '../contexts/CartContext';
+import Hero from '../components/Hero/Hero';
+import Navbar from '../components/Navbar/Navbar';
 
 export default function Home() {
+  const { cart, setCart } = useContext(CartContext);
+  const { items, setItems } = useState([{ name: 'pepe', id: '2323' }]);
+  const { loading, setLoading } = useState(true);
+
+  useEffect(() => {
+    setCart([
+      { id: 1, name: 'Robert' },
+      { id: 2, name: 'Mike' },
+    ]);
+  }, [setCart]);
+
+  useEffect(() => {
+    console.log(items);
+  }, [items]);
+
+  useEffect(() => {
+    const getItems = async () => {
+      try {
+        const db = getFirestore();
+        const itemsCollection = db.collection(`songs`);
+        const itemSnapshot = await itemsCollection
+          .orderBy('name', 'desc')
+          .limit(20)
+          .get();
+
+        console.log('Songs:', itemSnapshot);
+        const items = itemSnapshot.docs.map((doc) => {
+          return { id: doc.id, ...doc.data() };
+        });
+
+        // setItems(items);
+        // setLoading(false);
+        console.log('Songs:', items);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getItems();
+  }, [setItems, setLoading]);
+
+  const linkTo = `about`;
+
+  const addProduct = (product) => {
+    setCart([...cart, product]);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -11,15 +65,37 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Navbar />
+
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <Hero />
+
+        <ul>
+          {cart.map((item) => (
+            <li key={item.id}>
+              <p>{item.name}</p>
+            </li>
+          ))}
+        </ul>
+
+        {/* <ul>
+          {!loading > 0 &&
+            songs.map((song) => <li key={song.id}>{song.name}</li>)}
+        </ul> */}
+
+        <button onClick={() => addProduct({ name: 'Repasador', id: '34' })}>
+          Add Product
+        </button>
 
         <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
+          <Link href={`/${linkTo}`}>
+            <a>About</a>
+          </Link>
         </p>
+
+        <ImgWrapper />
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
