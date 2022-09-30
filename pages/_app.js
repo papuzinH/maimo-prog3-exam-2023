@@ -1,3 +1,4 @@
+import '../styles/grid.css';
 import '../styles/globals.css';
 import { AppProvider } from '../contexts/AppContext';
 import { CartProvider } from '../contexts/CartContext';

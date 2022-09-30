@@ -9,11 +9,12 @@ import { getFirestore } from '../utils/firebase';
 import { CartContext } from '../contexts/CartContext';
 import Hero from '../components/Hero/Hero';
 import Navbar from '../components/Navbar/Navbar';
+import Products from '../components/Products/Products';
 
 export default function Home() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { cart, setCart } = useContext(CartContext);
-  const { items, setItems } = useState([{ name: 'pepe', id: '2323' }]);
-  const { loading, setLoading } = useState(true);
 
   useEffect(() => {
     setCart([
@@ -23,33 +24,32 @@ export default function Home() {
   }, [setCart]);
 
   useEffect(() => {
-    console.log(items);
+    console.log('items', items);
   }, [items]);
 
-  useEffect(() => {
-    const getItems = async () => {
-      try {
-        const db = getFirestore();
-        const itemsCollection = db.collection(`songs`);
-        const itemSnapshot = await itemsCollection
-          .orderBy('name', 'desc')
-          .limit(20)
-          .get();
+//   useEffect(() => {
+//     const getItems = async () => {
+//       try {
+//         const db = getFirestore();
+//         const itemsCollection = db.collection(`songs`);
+//         const itemSnapshot = await itemsCollection
+//           .orderBy('name', 'desc')
+//           .limit(20)
+//           .get();
 
-        console.log('Songs:', itemSnapshot);
-        const items = itemSnapshot.docs.map((doc) => {
-          return { id: doc.id, ...doc.data() };
-        });
+//         const items = itemSnapshot.docs.map((doc) => {
+//           return { id: doc.id, ...doc.data() };
+//         });
 
-        // setItems(items);
-        // setLoading(false);
-        console.log('Songs:', items);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getItems();
-  }, [setItems, setLoading]);
+//         // setItems(items);
+//         // setLoading(false);
+//         console.log('Songs:', items);
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     };
+//     getItems();
+//   }, [setItems, setLoading]);
 
   const linkTo = `about`;
 
@@ -69,7 +69,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <Hero />
-
+        <Products />
         <ul>
           {cart.map((item) => (
             <li key={item.id}>
@@ -77,11 +77,6 @@ export default function Home() {
             </li>
           ))}
         </ul>
-
-        {/* <ul>
-          {!loading > 0 &&
-            songs.map((song) => <li key={song.id}>{song.name}</li>)}
-        </ul> */}
 
         <button onClick={() => addProduct({ name: 'Repasador', id: '34' })}>
           Add Product
@@ -97,35 +92,6 @@ export default function Home() {
 
         <ImgWrapper />
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
       </main>
 
       <footer className={styles.footer}>
