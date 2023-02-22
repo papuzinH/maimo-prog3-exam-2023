@@ -35,10 +35,10 @@ Se valora el uso de buenas prácticas, sugar syntax, eficiencia en el código, r
 - Crear un Next link a /about
 - Completar esa página con los datos del alumno.
 
-5. Styles
+6. Styles
 - Estilar los componentes y paginas creadas utilizando breakpoints en 768 y 480 px.
 
-6. Pushear a github y crear el proyecto en Vercel.
+7. Pushear a github y crear el proyecto en Vercel.
 
 ## Getting Started
 
