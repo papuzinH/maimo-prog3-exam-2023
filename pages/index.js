@@ -4,6 +4,8 @@ import styles from '../styles/Home.module.css';
 import Link from 'next/link';
 import Hero from '../components/Hero/Hero';
 import Navbar from '../components/Navbar/Navbar';
+import Show from '../components/Show/Show';
+import Search from '../components/Search/Search';
 
 export default function Home() {
   return (
@@ -16,6 +18,10 @@ export default function Home() {
       <Navbar />
       <main className={styles.main}>
         <Hero />
+        <Show id={167}/>
+        <Show id={200}/>
+        <Show id={190}/>
+        <Search />
       </main>
 
       <footer className={styles.footer}>
