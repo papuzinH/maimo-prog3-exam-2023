@@ -1,0 +1,29 @@
+.singleShowInfoContainer {
+    padding: 80px 20px 20px 20px;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.imageContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.singleShowInfoContainer h1 {
+    text-align: center;
+}
+
+.infoSingleShow p {
+    color: #eee;
+    font-weight: 600;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    margin: 0;
+}
+
+.singleShowInfoContainer p:last-child {
+    border-bottom: none;
+}
+

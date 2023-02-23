@@ -1,0 +1,67 @@
+.showCardContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.showCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #333;
+}
+
+.infoShowCardContainer {
+    width: 100%;
+}
+
+.firstInfoShowCard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.firstInfoShowCard p {
+    margin: 0;
+}
+
+.genresShowCard {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    list-style: none;
+    padding-left: 0;
+}
+
+.genresShowCard li {
+    padding: 0 5px;
+    border-right: 1px solid #fff;
+}
+
+.genresShowCard li:first-child {
+    padding-left: 0;
+}
+
+.genresShowCard li:last-child {
+    border-right: none;
+}
+
+.buttonShowCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 5px;
+    border-radius: 5px;
+    background-color: #ccc;
+    color: #333;
+}

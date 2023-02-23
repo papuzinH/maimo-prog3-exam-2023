@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Search.module.css';
+import axios from 'axios';
 import { Formik } from 'formik';
+import Show from '../Show/Show';
 
 const Search = () => {
-  const handleSearch = (searchValue) => {
-    console.log(searchValue);
+  const [showsResult, setShowResults] = useState([]);
+  const handleSearch = async (searchValue, setSubmitting) => {
+    try {
+      const response = await axios.get(
+        `https://api.tvmaze.com/search/shows?q=${searchValue}`,
+      );
+      setShowResults(response.data);
+      setSubmitting(false)
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <section>
-      <h2>Search shows</h2>
+    <section className={styles.searchContainer}>
+      <h2>Search your show</h2>
       <div className={styles.form_container}>
         <Formik
           initialValues={{ show: '' }}
@@ -20,8 +31,8 @@ const Search = () => {
             }
             return errors;
           }}
-          onSubmit={(values) => {
-            // O_-
+          onSubmit={(values, {setSubmitting}) => {
+            handleSearch(values.show, setSubmitting);
           }}
         >
           {({
@@ -31,7 +42,7 @@ const Search = () => {
             handleChange,
             handleBlur,
             handleSubmit,
-            isSubmitting,
+            isSubmitting
           }) => (
             <form onSubmit={handleSubmit}>
               <input
@@ -51,8 +62,12 @@ const Search = () => {
           )}
         </Formik>
       </div>
-      <div className={styles.results_container}>
-        <p>display grid here</p>
+      <div className={`grid ${styles.results_container} `}>
+        {showsResult.map((show) => (
+          <div key={show.show.id} className="col_4">
+            <Show key={show.show.id} id={show.show.id} />
+          </div>
+        ))}
       </div>
     </section>
   );

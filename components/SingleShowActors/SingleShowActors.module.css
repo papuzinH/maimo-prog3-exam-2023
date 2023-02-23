@@ -1,0 +1,34 @@
+.singleShowActorsContainer {
+    width: 100%;
+    padding: 0 20px 50px 20px;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.actorsCard {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #333;
+}
+
+.actorsCard p {
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.actorsCard p:last-child {
+    border-bottom: none;
+    
+    padding: 10px 0;
+}
+
+.actorsCard h4{
+    margin: 5px 0 10px 0;
+}
+
